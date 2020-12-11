@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matador de Monstro</title>
+
+    <link rel="stylesheet" href="style.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+
+    
+    <div class="app">
+        <!-- INÍCIO - barra de vida dos jogadores -->
+        <section class="scores card">
+            <div class="container alinhar-container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group label">
+                                    <label>Jogador</label>
+                                    <div class="progress" style="height: 35px;">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" :class="corBarraVidaJogador" role="progressbar" 
+                                             :style="{'width': pontoVidaJogador+'%'}"  aria-valuemin="0" aria-valuemax="100">{{ pontoVidaJogador }}%</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group label">
+                                    <label>Monstro</label>
+                                    <div class="progress" style="height: 35px;">
+                                        <div class="progress-bar progress-bar-striped progress-bar-animated" :class="corBarraVidaMonstro" role="progressbar" 
+                                             :style="{'width': pontoVidaMonstro+'%'}"  aria-valuemin="0" aria-valuemax="100">{{ pontoVidaMonstro }}%</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- FIM - barra de vida dos jogadores -->
+
+
+        <!-- INÍCIO - mensagem sucesso ou derrota -->
+        <section class="card" :style="mostrarMensagem">
+            <div class="container alinhar-container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="alert alert-success" v-if="ganhouJogador" role="alert">
+                                    Ufaa.. foi por pouco mas você ganhou !! Parabéns !
+                                </div>
+                                <div class="alert alert-danger" v-if="ganhouMonstro" role="alert">
+                                    tsc tsc tsc perdeu para o monstro !!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- INÍCIO - mensagem sucesso ou derrota -->
+
+
+
+        <!-- INÍCIO - botões de ação -->
+        <section class="buttons card">
+            <div class="container alinhar-container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-12 alinhar-botoes">
+                                <button type="button" v-if="!iniciarBatalha" @click="logar" class="botao btn btn-outline-info">INICIAR BATALHA</button>
+                                <button type="button" v-if="iniciarBatalha"  @click="atacar" class="botao btn btn-outline-danger">ATAQUE</button>
+                                <button type="button" v-if="iniciarBatalha"  @click="atacarEspecial" class="botao btn btn-outline-warning">ATAQUE ESPECIAL</button>
+                                <button type="button" v-if="iniciarBatalha"  @click="curar" class="botao btn btn-outline-success">CURAR</button>
+                                <button type="button" v-if="iniciarBatalha"  @click="desistir" class="botao btn btn-outline-default">DESISTIR</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- FIM - botões de ação -->
+        
+        <!-- INÍCIO - logs -->
+        <section class="buttons card" >
+            <div class="container alinhar-container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-12" v-for="log in listaLog">
+                                <div class="alert" :class="log.classe" >
+                                    {{ log.mensagem }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- FIM - logs -->
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue2-filters/dist/vue2-filters.min.js"></script>
+    <script src="app.js"></script>
+    
+    
+</body>
+</html>
